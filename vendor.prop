@@ -163,6 +163,7 @@ vendor.media.vpp.sr.enable=0
 
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
+vendor.perf.gestureflingboost.enable=true
 ro.vendor.perf.scroll_opt=true
 
 # Qualcomm System Daemon
