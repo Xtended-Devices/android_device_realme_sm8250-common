@@ -840,7 +840,6 @@ function configure_zram_parameters() {
     if [ "$low_ram" == "true" ]; then
         echo lz4 > /sys/block/zram0/comp_algorithm
     fi
-
     if [ -f /sys/block/zram0/disksize ]; then
         if [ -f /sys/block/zram0/use_dedup ]; then
             echo 1 > /sys/block/zram0/use_dedup
@@ -3849,6 +3848,15 @@ case "$target" in
         soc_id=`cat /sys/devices/soc0/soc_id`
     fi
 
+    echo 2 > /dev/stune/schedtune.window_policy
+    echo 3 > /dev/stune/background/schedtune.window_policy
+    echo 2 > /dev/stune/foreground/schedtune.window_policy
+    echo 2 > /dev/stune/top-app/schedtune.window_policy
+
+	echo 1 > /dev/stune/background/schedtune.discount_wait_time
+	echo 1 > /dev/stune/background/schedtune.ed_task_filter
+	echo 1 > /dev/stune/background/schedtune.top_task_filter
+
     case "$soc_id" in
         "400" | "440" | "476" )
         # Core control parameters on silver
@@ -3921,6 +3929,8 @@ case "$target" in
         # Set Memory parameters
         configure_memory_parameters
 
+        echo noop > /sys/block/sda/queue/scheduler
+
         if [ `cat /sys/devices/soc0/revision` == "2.0" ]; then
              # r2.0 related changes
              echo "0:1075200" > /sys/devices/system/cpu/cpu_boost/input_boost_freq
@@ -3928,7 +3938,7 @@ case "$target" in
              echo 1075200 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_freq
              echo 1152000 > /sys/devices/system/cpu/cpufreq/policy6/schedutil/hispeed_freq
              echo 1401600 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/hispeed_freq
-             echo 614400 > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
+             echo 576000 > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
              echo 652800 > /sys/devices/system/cpu/cpufreq/policy6/scaling_min_freq
              echo 806400 > /sys/devices/system/cpu/cpufreq/policy7/scaling_min_freq
              echo 83 > /proc/sys/kernel/sched_asym_cap_sibling_freq_match_pct
@@ -4006,7 +4016,7 @@ case "$target" in
         setprop vendor.dcvs.prop 1
 
         # cpuset parameters
-        echo 0-5 > /dev/cpuset/background/cpus
+        echo 0-3 > /dev/cpuset/background/cpus
         echo 0-5 > /dev/cpuset/system-background/cpus
 
         # Turn off scheduler boost at the end
@@ -4377,10 +4387,6 @@ case "$target" in
             # Turn off scheduler boost at the end
             echo 0 > /proc/sys/kernel/sched_boost
 
-	    echo N > /sys/module/lpm_levels/system/pwr/pwr-l2-gdhs/idle_enabled
-	    echo N > /sys/module/lpm_levels/system/perf/perf-l2-gdhs/idle_enabled
-	    echo N > /sys/module/lpm_levels/system/pwr/pwr-l2-gdhs/suspend_enabled
-            echo N > /sys/module/lpm_levels/system/perf/perf-l2-gdhs/suspend_enabled
             # Turn on sleep modes
             echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
 
@@ -5312,11 +5318,14 @@ case "$target" in
 		echo 85 85 > /proc/sys/kernel/sched_downmigrate
 		echo 100 > /proc/sys/kernel/sched_group_upmigrate
 		echo 10 > /proc/sys/kernel/sched_group_downmigrate
+		echo 1 > /proc/sys/kernel/sched_walt_rotate_big_tasks
 
 		echo 0-3 > /dev/cpuset/background/cpus
 		echo 0-3 > /dev/cpuset/system-background/cpus
 
 
+		# Turn off scheduler boost at the end
+		echo 0 > /proc/sys/kernel/sched_boost
 
 		# configure governor settings for silver cluster
 		echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
@@ -5405,12 +5414,8 @@ case "$target" in
 				echo 0 > $npubw/bw_hwmon/idle_mbps
 		                echo 40 > $npubw/polling_interval
 				echo 0 > /sys/devices/virtual/npu/msm_npu/pwr
-	                      done
-	           done
-	fi
-	# Turn off scheduler boost at the end
-	echo 0 > /proc/sys/kernel/sched_boost
-	echo 1 > /proc/sys/kernel/sched_walt_rotate_big_tasks
+	    done
+	done
 
 	# memlat specific settings are moved to seperate file under
 	# device/target specific folder
@@ -5458,6 +5463,7 @@ case "$target" in
 			configure_automotive_sku_parameters
 		   fi
 		fi
+	fi
     ;;
 esac
 
@@ -5753,12 +5759,12 @@ case "$target" in
 	else
 		echo 1708800 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_freq
 	fi
-	echo 1248000 > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
+	echo 576000 > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
 	echo 1 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/pl
 
 	# configure input boost settings
 	echo "0:1612800 4:1670400 7:1516800" > /sys/devices/system/cpu/cpu_boost/input_boost_freq
-	echo 120 > /sys/devices/system/cpu/cpu_boost/input_boost_ms
+	echo 40 > /sys/devices/system/cpu/cpu_boost/input_boost_ms
 
 	# configure governor settings for gold cluster
 	echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
@@ -5780,6 +5786,23 @@ case "$target" in
 		echo 1612800 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/hispeed_freq
 	fi
 	echo 1 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/pl
+
+	echo 2 > /dev/stune/schedtune.window_policy
+	echo 3 > /dev/stune/background/schedtune.window_policy
+	echo 2 > /dev/stune/foreground/schedtune.window_policy
+	echo 2 > /dev/stune/top-app/schedtune.window_policy
+	echo 80 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/target_loads
+	echo 0 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/above_hispeed_delay
+	echo 80 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/target_loads
+	echo 0 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/above_hispeed_delay
+	echo "80 2841600:99" > /sys/devices/system/cpu/cpufreq/policy7/schedutil/target_loads
+	echo 0 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/above_hispeed_delay
+
+	echo 1 > /dev/stune/background/schedtune.discount_wait_time
+	echo 1 > /dev/stune/background/schedtune.ed_task_filter
+	echo 1 > /dev/stune/background/schedtune.top_task_filter
+
+	echo 156 > /proc/sys/kernel/sched_min_task_util_for_colocation
 
 	# Enable bus-dcvs
 	for device in /sys/devices/platform/soc
@@ -5863,6 +5886,8 @@ case "$target" in
         setprop vendor.dcvs.prop 0
 	setprop vendor.dcvs.prop 1
     echo N > /sys/module/lpm_levels/parameters/sleep_disabled
+    #/*Wangtao@BSP.kernel.MM change IO scheduler to noop */
+    echo noop > /sys/block/sda/queue/scheduler
     configure_memory_parameters
     ;;
 esac
