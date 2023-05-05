@@ -32,7 +32,7 @@
     <bool name="config_dozeAlwaysOnEnabled">false</bool>
 
     <!-- Enable doze mode -->
-    <string name="config_dozeComponent">org.lineageos.settings.doze/org.line>
+    <string name="config_dozeComponent">org.lineageos.settings.doze/org.lineageos.settings.doze.DozeSettingsActivity</string>
 
     <bool name="config_dozeAfterScreenOff">true</bool>
 

@@ -45,54 +45,7 @@ esac
 case "$baseband" in
     "msm" | "csfb" | "svlte2a" | "mdm" | "mdm2" | "sglte" | "sglte2" | "dsda2" | "unknown" | "dsda3" | "sdm" | "sdx" | "sm6")
 
-    # For older modem packages launch ril-daemon.
-    if [ -f /vendor/firmware_mnt/verinfo/ver_info.txt ]; then
-        modem=`cat /vendor/firmware_mnt/verinfo/ver_info.txt |
-                sed -n 's/^[^:]*modem[^:]*:[[:blank:]]*//p' |
-                sed 's/.*MPSS.\(.*\)/\1/g' | cut -d \. -f 1`
-        if [ "$modem" = "AT" ]; then
-            version=`cat /vendor/firmware_mnt/verinfo/ver_info.txt |
-                    sed -n 's/^[^:]*modem[^:]*:[[:blank:]]*//p' |
-                    sed 's/.*AT.\(.*\)/\1/g' | cut -d \- -f 1`
-            if [ ! -z $version ]; then
-                if [ "$version" \< "3.1" ]; then
-                    qcrild_status=false
-                fi
-            fi
-        elif [ "$modem" = "TA" ]; then
-            version=`cat /vendor/firmware_mnt/verinfo/ver_info.txt |
-                    sed -n 's/^[^:]*modem[^:]*:[[:blank:]]*//p' |
-                    sed 's/.*TA.\(.*\)/\1/g' | cut -d \- -f 1`
-            if [ ! -z $version ]; then
-                if [ "$version" \< "3.0" ]; then
-                    qcrild_status=false
-                fi
-            fi
-        elif [ "$modem" = "JO" ]; then
-            version=`cat /vendor/firmware_mnt/verinfo/ver_info.txt |
-                    sed -n 's/^[^:]*modem[^:]*:[[:blank:]]*//p' |
-                    sed 's/.*JO.\(.*\)/\1/g' | cut -d \- -f 1`
-            if [ ! -z $version ]; then
-                if [ "$version" \< "3.2" ]; then
-                    qcrild_status=false
-                fi
-            fi
-        elif [ "$modem" = "TH" ]; then
-            qcrild_status=false
-        fi
-    fi
-
-    wifionly=`getprop ro.carrier`
-    if [ "$qcrild_status" = "true" ]; then
-        # Make sure both rild, qcrild are not running at same time.
-        # This is possible with vanilla aosp system image.
-        stop vendor.ril-daemon
-        if [ "$wifionly" != "wifi-only" ]; then
-                start vendor.qcrild
-        fi
-    else
-        start vendor.ril-daemon
-    fi
+    start vendor.qcrild
 
     case "$baseband" in
         "svlte2a" | "csfb")
@@ -112,32 +65,21 @@ case "$baseband" in
     if [ "$multisim" = "dsds" ] || [ "$multisim" = "dsda" ]; then
         start vendor.qcrild2
     elif [ "$multisim" = "tsts" ]; then
-        if [ "$qcrild_status" = "true" ]; then
-            if [ "$wifionly" != "wifi-only" ]; then
-                start vendor.qcrild2
-                start vendor.qcrild3
-            fi
-        else
-          start vendor.ril-daemon2
-          start vendor.ril-daemon3
-        fi
+        start vendor.qcrild2
+        start vendor.qcrild3
     fi
 
     case "$datamode" in
         "tethered")
             start vendor.dataqti
             if [ "$low_ram" != "true" ]; then
-                if [ "$wifionly" != "wifi-only" ]; then
-                  start vendor.dataadpl
-                fi
+              start vendor.dataadpl
             fi
             ;;
         "concurrent")
             start vendor.dataqti
             if [ "$low_ram" != "true" ]; then
-                if [ "$wifionly" != "wifi-only" ]; then
-                  start vendor.dataadpl
-                fi
+              start vendor.dataadpl
             fi
             ;;
         *)
