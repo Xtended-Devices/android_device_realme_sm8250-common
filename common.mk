@@ -235,7 +235,6 @@ PRODUCT_PACKAGES += \
     fstab.qcom.ramdisk \
     init.class_main.sh \
     init.oplus.rc \
-    init.oplus_extras.rc \
     init.oplus.sh \
     init.oplus.touch.rc \
     init.qcom.early_boot.sh \
@@ -322,11 +321,6 @@ PRODUCT_PACKAGES += \
     libOmxVdec \
     libstagefrighthw
 
-# OPlusExtras
-PRODUCT_PACKAGES += \
-    OPlusExtras \
-    tri-state-key-calibrate
-
 # Overlays
 $(call inherit-product, hardware/oplus/overlay/qssi/qssi.mk)
 
@@ -337,7 +331,6 @@ PRODUCT_PACKAGES += \
     CarrierConfigResCommon \
     FrameworksResTarget \
     OPlusCarrierConfigResCommon \
-    OPlusExtrasResCommon \
     OPlusFrameworksResCommon \
     OPlusSettingsResCommon \
     OPlusSystemUIResCommon \
