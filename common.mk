@@ -27,12 +27,24 @@ $(call inherit-product, vendor/realme/sm8250-common/sm8250-common-vendor.mk)
 PRODUCT_PACKAGES += \
     com.dsi.ant@1.0.vendor
 
+# ART
+PRODUCT_VENDOR_PROPERTIES += \
+    dalvik.vm.dex2oat-filter=speed \
+    dalvik.vm.image-dex2oat-filter=speed \
+    dalvik.vm.dex2oat64.enabled=true \
+    dalvik.vm.systemuicompilerfilter=speed
+
+PRODUCT_DEXPREOPT_SPEED_APPS += \
+    Settings \
+    SystemUI \
+    Launcher3QuickStep
+
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio.service \
     android.hardware.audio@6.0-impl \
     android.hardware.audio.effect@6.0-impl \
-    android.hardware.bluetooth.audio-impl \
+    android.hardware.bluetooth.audio@2.0-impl \
     android.hardware.soundtrigger@2.3-impl
 
 PRODUCT_PACKAGES += \
@@ -138,8 +150,6 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.common-V1-ndk.vendor \
     android.hardware.graphics.mapper@3.0-impl-qti-display \
     android.hardware.graphics.mapper@4.0-impl-qti-display \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service \
     vendor.display.config@1.15.vendor \
     vendor.display.config@2.0.vendor \
     vendor.qti.hardware.display.allocator-service \
@@ -394,7 +404,7 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@2.0-service.multihal
+    android.hardware.sensors-service.multihal
 
 PRODUCT_PACKAGES += \
     libsensorndkbridge \
@@ -494,6 +504,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_ODM)/vendor/etc/wifi/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/qca6390/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 

@@ -1,4 +1,4 @@
-<manifest version="2.0" type="device" target-level="5">
+<manifest version="2.0" type="device" target-level="6">
     <hal format="hidl">
         <name>android.hardware.audio</name>
         <transport>hwbinder</transport>
@@ -28,6 +28,16 @@
             <instance>default</instance>
         </interface>
         <fqname>@1.0::IBluetoothHci/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.bluetooth.audio</name>
+        <transport>hwbinder</transport>
+        <version>2.0</version>
+        <interface>
+            <name>IBluetoothAudioProvidersFactory</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@2.0::IBluetoothAudioProvidersFactory/default</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.camera.provider</name>
@@ -73,16 +83,6 @@
         </interface>
         <fqname>@1.0::IOmx/default</fqname>
         <fqname>@1.0::IOmxStore/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>android.hardware.memtrack</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IMemtrack</name>
-            <instance>default</instance>
-        </interface>
-        <fqname>@1.0::IMemtrack/default</fqname>
     </hal>
     <hal format="hidl">
         <name>android.hardware.nfc</name>
@@ -138,12 +138,12 @@
     <hal format="hidl">
         <name>android.hardware.tetheroffload.control</name>
         <transport>hwbinder</transport>
-        <version>1.0</version>
+        <version>1.1</version>
         <interface>
             <name>IOffloadControl</name>
             <instance>default</instance>
         </interface>
-        <fqname>@1.0::IOffloadControl/default</fqname>
+        <fqname>@1.1::IOffloadControl/default</fqname>
     </hal>
     <hal format="hidl">
         <name>com.dsi.ant</name>
