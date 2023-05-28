@@ -172,7 +172,12 @@ PRODUCT_PACKAGES += \
     libsdmcore \
     libsdmutils \
     libtinyxml \
-    libvulkan
+    libvulkan \
+    libhistogram \
+    libqdutils \
+    libsdedrm \
+    libsdmcore \
+    libsdmutils
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.opengles.aep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.opengles.aep.xml \
