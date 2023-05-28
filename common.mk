@@ -73,7 +73,9 @@ PRODUCT_PACKAGES += \
     libspkrprot \
     libtinycompress \
     libvisualizer \
-    libvolumelistener
+    libvolumelistener \
+    liba2dpoffload \
+    audioadsprpcd 
 
 AUDIO_HAL_DIR := hardware/qcom-caf/sm8250/audio
 
