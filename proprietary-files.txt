@@ -1,12 +1,10 @@
 ## All proprietary files from this list, unless pinned and noted otherwise, are
-## from realme GT Neo2 5G (RMX3370_11.C.10).
+## from realme GT Neo2 5G (RMX3370_11.F.07).
 
 # ACDB
 vendor/etc/acdbdata/adsp_avs_config.acdb
 
 # ADSP
-vendor/bin/adsprpcd
-vendor/etc/init/vendor.qti.adsprpc-service.rc
 vendor/etc/seccomp_policy/vendor.qti.hardware.dsp.policy
 vendor/lib/vendor.qti.hardware.dsp@1.0.so
 vendor/lib64/libadsp_default_listener.so
@@ -81,20 +79,16 @@ vendor/lib/soundfx/libshoebox.so
 vendor/lib/soundfx/libqcbassboost.so
 vendor/lib/soundfx/libqcreverb.so
 vendor/lib/soundfx/libqcvirt.so
-vendor/lib/liba2dpoffload.so
 vendor/lib/libssrec.so
 vendor/lib/libacdb-fts.so
 vendor/lib/libacdbloader.so
 vendor/lib/libacdbrtac.so
 vendor/lib/libadiertac.so
 vendor/lib/libadm.so
-vendor/lib/libadsprpc.so
 vendor/lib/libaudcal.so
 vendor/lib/libaudio_log_utils.so
 vendor/lib/libaudioconfigstore.so
-vendor/lib/libhdmipassthru.so
 vendor/lib/libqtigef.so
-vendor/lib64/libadsprpc.so
 vendor/lib64/soundfx/libqcbassboost.so
 vendor/lib64/soundfx/libqcvirt.so
 
@@ -622,6 +616,7 @@ odm/lib64/libAncHumanSegFigureFusion.so
 odm/lib64/libAncSegBaseSdk.so
 odm/lib64/libAncSegmentSdk.so
 odm/lib64/libBokehPre.so
+odm/lib64/libCNamaSDK_vendor.so
 odm/lib64/libCOppLceTonemapAPI.so
 odm/lib64/libCaptureBokeh.so
 odm/lib64/libDeVIS.so
@@ -635,6 +630,7 @@ odm/lib64/libFaceDistortionCorrection.so
 odm/lib64/libFaceWhiten.so
 odm/lib64/libFilterWrapper.so
 odm/lib64/libHdrVideo.so
+odm/lib64/libNamaWrapper.so
 odm/lib64/libNightVideo.so
 odm/lib64/libOGLManager.so
 odm/lib64/libOPLUS_SCPortrait.so
@@ -982,20 +978,11 @@ vendor/etc/Oppo_QC_LTM_Commercial_2020_01_03.pfm
 # Display (HDR)
 vendor/lib64/libhdr_tm.so
 
-# Display (HWC)
-vendor/bin/hw/vendor.qti.hardware.display.composer-service
-vendor/lib64/libdisplayconfig.qti.so
-vendor/lib64/libhistogram.so
-vendor/lib64/libqdutils.so
-vendor/lib64/libsdmcore.so
-vendor/lib64/libsdmutils.so
-
 # Display (SDM)
 vendor/lib64/libdisplayqos.so
 vendor/lib64/libdisplayskuutils.so
 vendor/lib64/libgame_enhance.so
 vendor/lib64/libqseed3.so
-vendor/lib64/libsdedrm.so
 vendor/lib64/libsdm-color.so
 vendor/lib64/libsdm-colormgr-algo.so
 vendor/lib64/libsdm-diag.so
@@ -1133,7 +1120,6 @@ vendor/lib64/hw/vulkan.adreno.so
 odm/etc/izat.conf
 odm/etc/sap.conf
 vendor/app/CACertService/CACertService.apk
-vendor/bin/hw/android.hardware.gnss@2.1-service-qti
 vendor/bin/loc_launcher
 vendor/bin/lowi-server
 vendor/bin/mlid
@@ -1141,8 +1127,6 @@ vendor/bin/slim_daemon
 vendor/bin/xtra-daemon
 vendor/bin/xtwifi-client
 vendor/bin/xtwifi-inet-agent
-vendor/etc/init/android.hardware.gnss@2.1-service-qti.rc
-vendor/etc/vintf/manifest/android.hardware.gnss@2.1-service-qti.xml
 vendor/etc/vintf/manifest/vendor.qti.gnss@4.0-service.xml
 vendor/etc/apdr.conf
 vendor/etc/cacert_location.pem
@@ -1154,28 +1138,20 @@ vendor/etc/lowi.conf
 vendor/etc/sap.conf
 vendor/etc/xtra_root_cert.pem
 vendor/etc/xtwifi.conf
-vendor/lib64/hw/android.hardware.gnss@2.1-impl-qti.so
 vendor/lib64/hw/vendor.qti.gnss@4.0-impl.so
 vendor/lib64/libaoa.so
 vendor/lib64/libasn1cper.so
 vendor/lib64/libasn1crt.so
 vendor/lib64/libasn1crtx.so
-vendor/lib64/libbatching.so
 vendor/lib64/libcacertclient.so
 vendor/lib64/libdataitems.so
 vendor/lib64/libgdtap.so
-vendor/lib64/libgeofencing.so
-vendor/lib64/libgnss.so
-vendor/lib64/libgnsspps.so
-vendor/lib64/libgps.utils.so
 vendor/lib64/libizat_client_api.so
 vendor/lib64/libizat_core.so
 vendor/lib64/libjnihelper.so
 vendor/lib64/liblbs_core.so
 vendor/lib64/libloc_api_v02.so
-vendor/lib64/libloc_core.so
 vendor/lib64/libloc_socket.so
-vendor/lib64/liblocation_api.so
 vendor/lib64/liblocationservice.so
 vendor/lib64/liblocationservice_glue.so
 vendor/lib64/liblowi_client.so
@@ -1342,6 +1318,7 @@ odm/lib64/vendor.oplus.hardware.osense.client@1.0.so
 
 # Perf
 odm/lib64/vendor.oplus.hardware.performance@1.0.so
+vendor/etc/smomo_setting.xml
 vendor/lib/vendor.oplus.hardware.performance@1.0.so
 
 # Peripheral
@@ -1761,6 +1738,20 @@ vendor/bin/hw/vendor.qti.hardware.soter@1.0-service
 vendor/etc/init/vendor.qti.hardware.soter@1.0-service.rc
 vendor/lib64/hw/vendor.qti.hardware.soter@1.0-impl.so
 vendor/lib64/vendor.qti.hardware.soter@1.0.so
+
+# SS Restart - from LA.UM.9.1.r1-11500.02-SMxxx0.QSSI12.0
+vendor/bin/ssr_diag|b1a45e7d5e887def7e106bfa6e4ab0c1af7faf86
+vendor/bin/ssr_setup|fdbcddb14a592fc2f2a11649ef443c34933fbc81
+vendor/bin/subsystem_ramdump|6fd57c08e514f8bf41212b0e9552fc44ae817b2c
+vendor/lib/libsubsystem_control.so|99a79e1e456a1d4138e19a555731f57f477e0300
+vendor/lib64/libsubsystem_control.so|133b04beab74a8c56510831fdbd40d19abfd75dc
+
+# SS Restart - from LA.UM.9.1.r1-11500.02-SMxxx0.QSSI12.0
+vendor/bin/ssr_diag|b1a45e7d5e887def7e106bfa6e4ab0c1af7faf86
+vendor/bin/ssr_setup|fdbcddb14a592fc2f2a11649ef443c34933fbc81
+vendor/bin/subsystem_ramdump|6fd57c08e514f8bf41212b0e9552fc44ae817b2c
+vendor/lib/libsubsystem_control.so|99a79e1e456a1d4138e19a555731f57f477e0300
+vendor/lib64/libsubsystem_control.so|133b04beab74a8c56510831fdbd40d19abfd75dc
 
 # Thermal engine
 vendor/bin/thermal-engine

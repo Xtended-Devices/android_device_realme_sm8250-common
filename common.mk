@@ -73,7 +73,9 @@ PRODUCT_PACKAGES += \
     libspkrprot \
     libtinycompress \
     libvisualizer \
-    libvolumelistener
+    libvolumelistener \
+    liba2dpoffload \
+    audioadsprpcd 
 
 AUDIO_HAL_DIR := hardware/qcom-caf/sm8250/audio
 
@@ -171,7 +173,12 @@ PRODUCT_PACKAGES += \
     libsdmcore \
     libsdmutils \
     libtinyxml \
-    libvulkan
+    libvulkan \
+    libhistogram \
+    libqdutils \
+    libsdedrm \
+    libsdmcore \
+    libsdmutils
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.opengles.aep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.opengles.aep.xml \
@@ -206,13 +213,22 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0.vendor
 
+# FUSE passthrough
+PRODUCT_PRODUCT_PROPERTIES += \
+    persist.sys.fuse.passthrough.enable=true
+
 # GPS
 PRODUCT_PACKAGES += \
     android.hardware.gnss.measurement_corrections@1.1.vendor \
     android.hardware.gnss.visibility_control@1.0.vendor \
     android.hardware.gnss@2.1.vendor \
     android.hardware.gnss@2.1-impl-qti \
-    android.hardware.gnss@2.1-service-qti
+    android.hardware.gnss@2.1-service-qti \
+    android.hardware.gnss@2.0-impl-qti \
+    android.hardware.gnss@2.0-service-qti \
+    libbatching \
+    libgeofencing \
+    libgnss
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps/gps.conf:$(TARGET_COPY_OUT_ODM)/etc/gps.conf
@@ -222,7 +238,7 @@ PRODUCT_COPY_FILES += \
 
 # Health
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl \
+    android.hardware.health@2.1-impl-qti \
     android.hardware.health@2.1-service
 
 # HIDL
@@ -245,6 +261,7 @@ PRODUCT_PACKAGES += \
     fstab.qcom \
     fstab.qcom.ramdisk \
     init.class_main.sh \
+    init.kona.post_boot.sh \
     init.oplus.rc \
     init.oplus.sh \
     init.oplus.touch.rc \
@@ -271,6 +288,10 @@ PRODUCT_PACKAGES += \
 # LiveDisplay
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.1-service.oplus
+
+# KProfiles
+PRODUCT_PACKAGES += \
+    KProfiles
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -435,6 +456,11 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/oplus \
     vendor/qcom/opensource/usb/etc
 
+# Task Profiles
+PRODUCT_COPY_FILES += \
+    system/core/libprocessgroup/profiles/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json \
+    system/core/libprocessgroup/profiles/cgroups.json:$(TARGET_COPY_OUT_VENDOR)/etc/cgroups.json
+
 # Telephony
 PRODUCT_PACKAGES += \
     ims-ext-common \
@@ -453,6 +479,14 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.telephony.ims.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.ims.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.sip.voip.xml
+
+# Subsystem silent restart
+PRODUCT_VENDOR_PROPERTIES += \
+    persist.vendor.ssr.restart_level=ALL_ENABLE
+
+# Subsystem silent restart
+PRODUCT_VENDOR_PROPERTIES += \
+    persist.vendor.ssr.restart_level=ALL_ENABLE
 
 # Touch
 PRODUCT_PACKAGES += \

@@ -90,6 +90,7 @@ TARGET_USES_QCOM_DISPLAY_BSP := true
 TARGET_USES_QTI_MAPPER_2_0 := true
 TARGET_USES_QTI_MAPPER_EXTENSIONS_1_1 := true
 TARGET_SCREEN_DENSITY := 480
+TARGET_GRALLOC_HANDLE_HAS_RESERVED_SIZE := true
 
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
@@ -97,8 +98,12 @@ TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
 # Fingerprint
 TARGET_SURFACEFLINGER_UDFPS_LIB := //hardware/oplus:libudfps_extension.oplus
 
+# GPS
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := default
+LOC_HIDL_VERSION := 3.0
+
 # HIDL
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     $(COMMON_PATH)/device_framework_matrix.xml \
     $(COMMON_PATH)/vendor_framework_compatibility_matrix.xml \
     vendor/xtended/config/device_framework_matrix.xml
