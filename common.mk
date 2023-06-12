@@ -367,7 +367,8 @@ PRODUCT_PACKAGES += \
     OPlusSettingsResCommon \
     OPlusSystemUIResCommon \
     OPlusTetheringResCommon \
-    WifiResTarget
+    WifiResTarget \
+    BoostFrameworkOverlay
 
 # Partition
 PRODUCT_BUILD_SUPER_PARTITION := false
