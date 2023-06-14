@@ -388,7 +388,8 @@ PRODUCT_PACKAGES += \
     OPlusSettingsResCommon \
     OPlusSystemUIResCommon \
     OPlusTetheringResCommon \
-    WifiResTarget
+    WifiResTarget \
+    BoostFrameworkOverlay
 
 # Partition
 PRODUCT_BUILD_SUPER_PARTITION := false
@@ -397,6 +398,17 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 # Perf
 PRODUCT_PACKAGES += \
     libqti-perfd-client
+    libpsi.vendor \
+    libtflite
+
+# Perf Jars
+PRODUCT_BOOT_JARS += \
+    QPerformance \
+    UxPerformance
+
+# IRQ balance config
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
 
 # Power
 PRODUCT_PACKAGES += \
@@ -484,9 +496,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.ssr.restart_level=ALL_ENABLE
 
-# Subsystem silent restart
-PRODUCT_VENDOR_PROPERTIES += \
-    persist.vendor.ssr.restart_level=ALL_ENABLE
+# Thermal
+PRODUCT_PACKAGES += \
+    android.hardware.thermal@2.0 \
+    android.hardware.thermal@2.0.vendor
 
 # Touch
 PRODUCT_PACKAGES += \
