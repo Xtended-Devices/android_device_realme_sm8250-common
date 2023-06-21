@@ -345,14 +345,32 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     init.qti.media.sh \
     libmm-omxcore \
-    libOmxAacEnc \
-    libOmxAmrEnc \
+    libOmxAacDec \
+    libOmxAlacDec \
+    libOmxAlacDecSw \
+    libOmxAmrDec \
+    libOmxAmrwbplusDec \
+    libOmxApeDec \
+    libOmxApeDecSw \
+    libOmxCore \
+    libOmxDsdDec \
     libOmxEvrcEnc \
+    libMpeg4SwEncoder \
+    libOmxMpeghEncSw \
+    libOmxMpeghDecSw \
     libOmxG711Enc \
+    libOmxG711Dec \
+    libOmxQcelp13Dec \
     libOmxQcelp13Enc \
     libOmxVdec \
+    libOmxVenc \
+    libOmxVpp \
+    libOmxSwVdec \
+    libOmxSwVencMpeg4 \
+    libOmxVideoDSMode \
+    libOmxVpp \
+    libOmxWmaDec \
     libstagefrighthw
-
 
 # OnePlus camera
 $(call inherit-product, vendor/oneplus/camera/camera-vendor.mk)
